@@ -1,0 +1,31 @@
+# 파이프라인 이름
+name: React Docker CI
+
+on:
+  push: # on: push 코드 push 실행
+    branches: [main]
+  pull_request: # PR 생성 및 업데이트 시 실행
+    branches: [main]
+
+  jobs: # 자동화할 작업 정의
+    build:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout source
+          uses: actions/checkout@v4
+
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: '22'
+            cache: 'npm'
+
+        - name: Install dependencies
+          run: npm ci # 의존성 설치
+
+        - name: Build React
+          run: npm run build # React 빌드
+
+        - name: Build Docker image
+          run: docker build -t docker-react:ci . # 도커 이미지 빌드
