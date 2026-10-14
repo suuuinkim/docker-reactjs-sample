@@ -7,7 +7,7 @@ on:
   pull_request: # PR 생성 및 업데이트 시 실행
     branches: [main]
 
-  jobs: # 자동화할 작업 정의
+jobs: # 자동화할 작업 정의
     build:
       runs-on: ubuntu-latest
 
